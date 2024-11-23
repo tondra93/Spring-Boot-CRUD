@@ -1,23 +1,24 @@
 package com.customspring.demo.student;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Service
 public class StudentService {
+    private final StudentRepository studentRepository;
+    @Autowired
+
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
     public List<Student> getStudents(){
-        return List.of(
-                new Student(
-                        1L,
-                        "Nahian",
-                        26,
-                        LocalDate.of(1999, Month.JULY,7),
-                        "nahian@gmail.com"
-                )
-        );
+        return studentRepository.findAll();
+    }
+
+    public void addNewStudent(Student student) {
     }
 }
